@@ -2,3 +2,10 @@
 source venv/bin/activate # in Linux
 # to turn off venv
 deactivate
+# install pip install mysqlclient
+# sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+
+# set up DB in fptuweb/settings.py
+
+# python manage.py makemigrations
+# python manage.py migrate

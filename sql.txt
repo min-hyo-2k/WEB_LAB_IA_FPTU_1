@@ -1,0 +1,84 @@
+------------------------------fptuweb/home/models.py-------------------------------------
+* Curriculum_Course:
+- id | PK
+- curriculum_id | FK
+- course_id | FK
+
+------
+* Student_Course:
+- id | PK
+- student_id | FK
+- course_id | FK
+- status (eg: passed, not passed, studying...)
+- semester (eg: Spring2023)
+- term (ki` ma sinh vien hoc mon do)
+
+------
+* Class_Course:
+- id | PK
+- class_id | FK
+- course_id | FK
+- teacher_id (nguoi day mon do o lop do) | FK
+- student_id | FK
+
+---
+@ Student - Course = many - many
+@ Curriculum - Course = many - many
+@ Class - Course = many - many
+
+------
+* Student:
+- id | PK
+- roll_number (eg: HE140409) | UNIQUE
+- name
+- gender (male/female)
+- date_of_birth
+- date_of_join (ngay gia nhap truong)
+- card_id | UNIQUE
+- date_of_issue (of id card)
+- curriculum_id (eg: BIT_IA_15B_AS) | FK --> Curriculum
+- current_term (ki` hoc hien tai cua sinh vien)
+
+------
+* Teacher:
+- id | PK
+- teacher_code (eg: duchm72) | UNIQUE
+- name
+- gender (male/female)
+- date_of_birth
+- date_of_join (ngay gia nhap truong)
+- card_id | UNIQUE
+- date_of_issue (of id card)
+
+------
+* Class:
+- id | PK
+- name (ge: MKT1505)
+
+------
+* Curriculum:
+- id | PK
+- name (eg: BIT_IA_15B_AS) | UNIQUE
+- major (eg: BIT)
+- specialization (eg: IA)
+------
+* Course:
+- id | PK
+- name
+- course_code (eg: MLN122, HOD401) | UNIQUE
+- credit (so tin chi)
+
+------
+* CourseMark: (diem so)
+- id | PK
+- student_id | FK
+- course_id | FK
+- part_mark_id | FK
+- mark
+
+------
+* CoursePartMark: (thanh phan diem)
+- id | PK
+- name (ten thanh phan diem)
+- weight (trong so diem)
+- course_id | FK
