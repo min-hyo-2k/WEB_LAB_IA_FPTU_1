@@ -4,7 +4,7 @@
 - curriculum_id | FK
 - course_id | FK
 
-------
+-------
 * Student_Course:
 - id | PK
 - student_id | FK
