@@ -1,0 +1,4 @@
+# active venv
+source venv/bin/activate # in Linux
+# to turn off venv
+deactivate
