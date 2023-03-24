@@ -1,10 +1,12 @@
 * Chuc nang:
 - Login
 - Logout
-- Information Sinh Vien /User/UserDetail.aspx
+- Information Sinh Vien /User/Profile.aspx
 - list mon hoc cua sinh vien (khung ctrinh hoc cua sv + diem tong mon hoc) /FrontOffice/StudentCurriculum.aspx + /Grade/StudentTranscript.aspx
 - Diem thanh phan tung mon /Grade/StudentGrade.aspx
 
+
+------------------------------------------------------------
 - web chinh sua / add diem cho sinh vien cua giang vien
 
 * 3 roles: quan li he thong, sinh vien, cho
