@@ -125,7 +125,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='ClasCourseTeacher',
+            name='ClassCourseTeacher',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('class_course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.classcourse')),
@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='ClasCourseStudent',
+            name='ClassCourseStudent',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('class_course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.classcourse')),

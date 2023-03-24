@@ -84,7 +84,7 @@ class ClassCourse(models.Model):
         unique_together = ('class_id', 'course')
 
 
-class ClasCourseStudent(models.Model):
+class ClassCourseStudent(models.Model):
     class_course_id = models.ForeignKey(ClassCourse, on_delete=models.CASCADE)
     students = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
 
@@ -92,7 +92,7 @@ class ClasCourseStudent(models.Model):
         unique_together = ('class_course_id', 'students')
 
 
-class ClasCourseTeacher(models.Model):
+class ClassCourseTeacher(models.Model):
     class_course_id = models.ForeignKey(ClassCourse, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
 
