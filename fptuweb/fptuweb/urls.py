@@ -14,10 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from fptuweb.main.views import home_views
+from django.urls import path, include
 
 urlpatterns = [
-    path('', home_views(), name = 'main'),
+    path('', include("main.urls")),
     path('admin/', admin.site.urls),
 ]
