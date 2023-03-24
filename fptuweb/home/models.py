@@ -134,7 +134,7 @@ class CoursePartMark(models.Model):
 
     def save(self, *args, **kwargs):
         if self.pk is None:
-            total_weight = CoursePartMark.objects.filter(course=self.course).aggregate(total=models.Sum('weight'))['total_weight'] or 0.0
+            total_weight = CoursePartMark.objects.filter(course=self.course).aggregate(total_weight=models.Sum('weight'))['total_weight'] or 0.0
             if total_weight + float(str(self.weight).replace("'", "")) > 100:
                 raise ValidationError("The total weight of course parts cannot exceed 100.")
         super().save(*args, **kwargs)
