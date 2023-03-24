@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import home.models
+import main.models
 
 
 class Migration(migrations.Migration):
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('card_id', models.CharField(max_length=12, unique=True)),
                 ('date_of_issue', models.DateField()),
                 ('current_term', models.PositiveIntegerField()),
-                ('curriculum', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='home.curriculum')),
+                ('curriculum', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='main.curriculum')),
             ],
         ),
         migrations.CreateModel(
@@ -71,16 +71,16 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=30)),
-                ('weight', models.FloatField(validators=[home.models.validate_weight])),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.course')),
+                ('weight', models.FloatField(validators=[main.models.validate_weight])),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.course')),
             ],
         ),
         migrations.CreateModel(
             name='ClassCourse',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('class_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.class')),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.course')),
+                ('class_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.class')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.course')),
             ],
             options={
                 'unique_together': {('class_id', 'course')},
@@ -93,8 +93,8 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(choices=[('P', 'Passed'), ('NP', 'Not Passed'), ('S', 'Studying'), ('NS', 'Not Started')], max_length=2)),
                 ('semester', models.CharField(max_length=20)),
                 ('term', models.PositiveIntegerField()),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.course')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.student')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.course')),
+                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.student')),
             ],
             options={
                 'unique_together': {('student', 'course')},
@@ -104,8 +104,8 @@ class Migration(migrations.Migration):
             name='CurriculumCourse',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.course')),
-                ('curriculum', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.curriculum')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.course')),
+                ('curriculum', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.curriculum')),
             ],
             options={
                 'unique_together': {('curriculum', 'course')},
@@ -116,9 +116,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('mark', models.FloatField()),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.course')),
-                ('part_mark', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.coursepartmark')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.student')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.course')),
+                ('part_mark', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.coursepartmark')),
+                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.student')),
             ],
             options={
                 'unique_together': {('student', 'course', 'part_mark')},
@@ -128,8 +128,8 @@ class Migration(migrations.Migration):
             name='ClassCourseTeacher',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('class_course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.classcourse')),
-                ('teacher', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='home.teacher')),
+                ('class_course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.classcourse')),
+                ('teacher', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='main.teacher')),
             ],
             options={
                 'unique_together': {('class_course_id', 'teacher')},
@@ -139,8 +139,8 @@ class Migration(migrations.Migration):
             name='ClassCourseStudent',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('class_course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='home.classcourse')),
-                ('students', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='home.student')),
+                ('class_course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.classcourse')),
+                ('students', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='main.student')),
             ],
             options={
                 'unique_together': {('class_course_id', 'students')},

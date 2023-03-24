@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.apps import apps
 # Register your models here.
 
-post_models = apps.get_app_config('home').get_models()
+post_models = apps.get_app_config('main').get_models()
 
 for model in post_models:
     try:
