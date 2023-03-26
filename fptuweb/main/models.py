@@ -138,15 +138,10 @@ def validate_weight(value):
         raise ValidationError('Value must be between 1 and 100')
 
 
-def validate_weight_sum(value):
-    course_name = CoursePartMark.course.name
-
-
 class CoursePartMark(models.Model):
     name = models.CharField(max_length=30)
     weight = models.FloatField(validators=[validate_weight])
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    objects = models.Manager()
 
     def __str__(self):
         return f"{self.name} : {self.course.name}"
