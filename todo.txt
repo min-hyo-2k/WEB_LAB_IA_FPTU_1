@@ -6,7 +6,7 @@
 - Diem thanh phan tung mon /Grade/StudentGrade.aspx
 
 
-------------------------------------------------------------
+------------------------------------------------------------ https://www.youtube.com/watch?v=sm1mokevMWk&ab_channel=TechWithTim
 - web chinh sua / add diem cho sinh vien cua giang vien
 
 * 3 roles: quan li he thong, sinh vien, cho

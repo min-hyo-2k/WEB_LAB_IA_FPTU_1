@@ -18,7 +18,7 @@ class Course(models.Model):
     credit = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.name} - {self.course_code}"
+        return f"{self.name} : {self.course_code}"
 
 
 class CurriculumCourse(models.Model):
@@ -27,6 +27,9 @@ class CurriculumCourse(models.Model):
 
     class Meta:
         unique_together = ('curriculum', 'course')
+
+    def __str__(self):
+        return f"{self.curriculum.name} : {self.course.name}"
 
 
 class Student(models.Model):
@@ -47,7 +50,7 @@ class Student(models.Model):
     current_term = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.name} - {self.roll_number}"
+        return f"{self.name} : {self.roll_number}"
 
 
 class Teacher(models.Model):
@@ -66,7 +69,7 @@ class Teacher(models.Model):
     date_of_issue = models.DateField()
 
     def __str__(self):
-        return f"{self.name} - {self.teacher_code}"
+        return f"{self.name} : {self.teacher_code}"
 
 
 class Class(models.Model):
@@ -83,6 +86,9 @@ class ClassCourse(models.Model):
     class Meta:
         unique_together = ('class_id', 'course')
 
+    def __str__(self):
+        return f"{self.class_id.name} : {self.course.name}"
+
 
 class ClassCourseStudent(models.Model):
     class_course_id = models.ForeignKey(ClassCourse, on_delete=models.CASCADE)
@@ -91,6 +97,9 @@ class ClassCourseStudent(models.Model):
     class Meta:
         unique_together = ('class_course_id', 'students')
 
+    def __str__(self):
+        return f"{self.students.name} : {self.class_course_id.__str__()}"
+
 
 class ClassCourseTeacher(models.Model):
     class_course_id = models.ForeignKey(ClassCourse, on_delete=models.CASCADE)
@@ -98,6 +107,9 @@ class ClassCourseTeacher(models.Model):
 
     class Meta:
         unique_together = ('class_course_id', 'teacher')
+
+    def __str__(self):
+        return f"{self.class_course_id.__str__()} : {self.teacher.__str__()}"
 
 
 class StudentCourse(models.Model):
@@ -117,10 +129,17 @@ class StudentCourse(models.Model):
     class Meta:
         unique_together = ('student', 'course')
 
+    def __str__(self):
+        return f"{self.student.name} : {self.course.name}"
+
 
 def validate_weight(value):
     if value < 1 or value > 100:
         raise ValidationError('Value must be between 1 and 100')
+
+
+def validate_weight_sum(value):
+    course_name = CoursePartMark.course.name
 
 
 class CoursePartMark(models.Model):
@@ -130,24 +149,22 @@ class CoursePartMark(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.name} - {self.course.name}"
+        return f"{self.name} : {self.course.name}"
 
-    def save(self, *args, **kwargs):
-        if self.pk is None:
-            total_weight = CoursePartMark.objects.filter(course=self.course).aggregate(total_weight=models.Sum('weight'))['total_weight'] or 0.0
-            if total_weight + float(str(self.weight).replace("'", "")) > 100:
-                raise ValidationError("The total weight of course parts cannot exceed 100.")
-        super().save(*args, **kwargs)
+
+def validate_mark(value):
+    if value < 0 or value > 10:
+        raise ValidationError('Value must be between 0 and 10')
 
 
 class CourseMark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     part_mark = models.ForeignKey(CoursePartMark, on_delete=models.CASCADE)
-    mark = models.FloatField()
+    mark = models.FloatField(validators=[validate_mark], null=True)
 
     class Meta:
         unique_together = ('student', 'course', 'part_mark')
 
     def __str__(self):
-        return f"{self.student.name} - {self.course.name} - {self.part_mark.name} - {self.mark}"
+        return f"{self.student.name} : {self.course.name} : {self.part_mark.name} : {self.mark}"
