@@ -1,11 +1,11 @@
 ------------------------------fptuweb/home/models.py-------------------------------------
-* Curriculum_Course:
+* Curriculum_Course: v
 - id | PK
 - curriculum_id | FK
 - course_id | FK
 
 -------
-* Student_Course:
+* Student_Course: v
 - id | PK
 - student_id | FK
 - course_id | FK
@@ -14,7 +14,7 @@
 - term (ki` ma sinh vien hoc mon do)
 
 ------
-* Class_Course:
+* Class_Course: v
 - id | PK
 - class_id | FK
 - course_id | FK
@@ -27,7 +27,7 @@
 @ Class - Course = many - many
 
 ------
-* Student:
+* Student: v
 - id | PK
 - roll_number (eg: HE140409) | UNIQUE
 - name
@@ -40,7 +40,7 @@
 - current_term (ki` hoc hien tai cua sinh vien)
 
 ------
-* Teacher:
+* Teacher: v
 - id | PK
 - teacher_code (eg: duchm72) | UNIQUE
 - name
@@ -51,18 +51,18 @@
 - date_of_issue (of id card)
 
 ------
-* Class:
+* Class: v
 - id | PK
-- name (ge: MKT1505)
+- name (ge: MKT1505) | UNIQUE
 
 ------
-* Curriculum:
+* Curriculum: v
 - id | PK
 - name (eg: BIT_IA_15B_AS) | UNIQUE
 - major (eg: BIT)
 - specialization (eg: IA)
 ------
-* Course:
+* Course: v
 - id | PK
 - name
 - course_code (eg: MLN122, HOD401) | UNIQUE
@@ -82,3 +82,13 @@
 - name (ten thanh phan diem)
 - weight (trong so diem)
 - course_id | FK
+
+---------------------------------------Comments------------------------------------------------
+# class Meta de link unique set value unique together 1-1
+# def str set return ve gia tri cua object ma minh set
+# Choices - The first element in each tuple is the actual value to be set on the model,
+  and the second element is the human-readable name.
+# datetime.date format year , month , day
+# PositiveIntegerField start from 0
+# on_delete=models.CASCADE - mat cha -> delete all con
+# on_delete=models.SET_NULL - mat cha -> all con = null
