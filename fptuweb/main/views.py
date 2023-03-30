@@ -6,9 +6,9 @@ from .models import *
 def home(response):
     return render(response, "main/home.html", {})
 
-def test1(response, id):
+def test(response, id):
     student = Student.objects.get(id=id)
-    sc = StudentCourse.objects.get(id=id)
-    #sca = StudentCourse.objects.all() #must do in html queryset, httpsresponse will not show queryset
-    print(sc.student.curriculum) 
-    return HttpResponse(f"<h1>{student.roll_number}</h1>")
+    student_course = StudentCourse.objects.filter(student=id)
+    course_list = [item.course for item in student_course]
+    print(course_list)
+    return render(response, "main/test.html", {'student' : student, 'course_list' : course_list})

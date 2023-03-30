@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+{% block title %}Test Site{% endblock %}
+
+{% block content %}
+    <h1>{{student.name}}</h1>
+    <h2>Subject Studied:</h2>
+    <ul>
+        {% for item in course_list %}
+            <li>{{item.id}} {{item.course_code}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
