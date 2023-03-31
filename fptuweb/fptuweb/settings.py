@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'students',
     'teachers',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

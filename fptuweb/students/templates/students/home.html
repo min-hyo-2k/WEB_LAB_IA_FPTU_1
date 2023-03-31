@@ -2,5 +2,16 @@
 {% block title %}Student Home{% endblock %}
 
 {% block content %}
-<h1>Student Home Page</h1>
+    <h1>Student Home Page</h1>
+    <ul class="list-group">
+        <li class="list-group-item">roll_number: {{student.roll_number}}</li>
+        <li class="list-group-item">name: {{student.name}}</li>
+        <li class="list-group-item">gender: {{student.gender}}</li>
+        <li class="list-group-item">date_of_birth: {{student.date_of_birth}}</li>
+        <li class="list-group-item">date_of_join: {{student.date_of_join}}</li>
+        <li class="list-group-item">card_id: {{student.card_id}}</li>
+        <li class="list-group-item">date_of_issue: {{student.date_of_issue}}</li>
+        <li class="list-group-item">curriculum: {{student.curriculum}}</li>
+        <li class="list-group-item">current_term: {{student.current_term}}</li>
+    </ul>
 {% endblock %}
