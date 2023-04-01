@@ -8,13 +8,13 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login")
+            return redirect("/login")
     else:
         form = RegistrationForm()
     return render(request, "teachers/register.html", {"form": form})
 
 # Create your views here.
-@login_required(login_url="/teachers/login")
+@login_required(login_url="/login")
 def home(request):
     u = request.user.username
     print(u)
@@ -23,7 +23,7 @@ def home(request):
     
     return render(request, "teachers/home.html", {"teacher" : teacher})
 
-@login_required(login_url="/teachers/login")
+@login_required(login_url="/login")
 def teacher_class(request):
     u = request.user.username
     print(u)
@@ -33,7 +33,7 @@ def teacher_class(request):
     print(teacher_class)
     return render(request, "teachers/teacher_class.html", {"teacher_class" : teacher_class})
 
-@login_required(login_url="/teachers/login")
+@login_required(login_url="/login")
 def student_list(request):
     group = request.GET.get('group')
     course = request.GET.get('course')

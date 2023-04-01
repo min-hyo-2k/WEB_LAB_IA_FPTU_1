@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from main import models as main_model
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url="/login")
 def home(request):
-    roll_number = request.GET.get('roll_number', 'HS001')
+    roll_number = request.user.username
     student = main_model.Student.objects.get(roll_number=roll_number)
     return render(request, "students/home.html", {'student' : student})
 
+@login_required(login_url="/login")
 def show_all_demo(request):
-    roll_number = request.GET.get('roll_number', 'HS001')
+    roll_number = request.user.username
     student = main_model.Student.objects.get(roll_number=roll_number)
     student_course = main_model.StudentCourse.objects.filter(student__roll_number=roll_number)
     for item in student_course:
@@ -17,8 +20,9 @@ def show_all_demo(request):
         item.save()
     return render(request, "students/show_all_demo.html", {'student' : student, 'student_course' : student_course})
 
+@login_required(login_url="/login")
 def show_course_demo(request):
-    roll_number = request.GET.get('roll_number', 'HS001')
+    roll_number = request.user.username
     student = main_model.Student.objects.get(roll_number=roll_number)
     course = main_model.Course.objects.all()
     return render(request, "students/show_course_demo.html", {'student' : student, 'course' : course})
@@ -44,7 +48,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Message
 from .forms import MessageForm
 
+@login_required(login_url="/login")
 def chat(request):
+    userName = request.user.username
     messages = Message.objects.all()
     form = MessageForm()
 
@@ -54,15 +60,18 @@ def chat(request):
             form.save()
             return redirect('chat')
 
-    context = {'messages': messages, 'form': form}
+    context = {'messages': messages, 'form': form, 'userName' : userName}
     return render(request, 'students/chat.html', context)
 
+@login_required(login_url="/login")
 def delete_message(request, message_id):
     message = get_object_or_404(Message, id=message_id)
     message.delete()
     return redirect('chat')
 
+@login_required(login_url="/login")
 def edit_message(request, message_id):
+    userName = request.user.username
     message = get_object_or_404(Message, id=message_id)
     form = MessageForm(instance=message)
 
@@ -72,5 +81,5 @@ def edit_message(request, message_id):
             form.save()
             return redirect('chat')
 
-    context = {'form': form}
+    context = {'form': form, 'userName' : userName}
     return render(request, 'students/edit_message.html', context)
