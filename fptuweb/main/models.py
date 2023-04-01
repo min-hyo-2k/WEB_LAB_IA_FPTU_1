@@ -167,9 +167,4 @@ class CourseMark(models.Model):
         return f"{self.student.name} : {self.course.name} : {self.part_mark.name} : {self.mark}"
 
 
-class Userlogin(models.Model):
-    code = models.CharField(max_length=255, unique=True)
-    email = models.EmailField()
-    password = models.CharField(max_length=255)
-
 

@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import HttpResponse
-from .forms import UserLoginForm
 from .models import *
 
 # Create your views here.
@@ -22,15 +20,16 @@ def test(response, id):
 
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('students_home')
         else:
             messages.error(request, 'Invalid email or password.')
-    return render(request, 'students/home.html')
+    return render(request, 'main/login.html')
 
 
 def logout_view(request):

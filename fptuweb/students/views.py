@@ -3,12 +3,12 @@ from main import models as main_model
 
 # Create your views here.
 def home(request):
-    roll_number = request.GET.get('roll_number', 'HS001')
+    roll_number = request.user.username
     student = main_model.Student.objects.get(roll_number=roll_number)
     return render(request, "students/home.html", {'student' : student})
 
 def show_all_demo(request):
-    roll_number = request.GET.get('roll_number', 'HS001')
+    roll_number = request.user.username
     student = main_model.Student.objects.get(roll_number=roll_number)
     student_course = main_model.StudentCourse.objects.filter(student__roll_number=roll_number)
     for item in student_course:
@@ -17,8 +17,9 @@ def show_all_demo(request):
         item.save()
     return render(request, "students/show_all_demo.html", {'student' : student, 'student_course' : student_course})
 
+
 def show_course_demo(request):
-    roll_number = request.GET.get('roll_number', 'HS001')
+    roll_number = request.user.username
     student = main_model.Student.objects.get(roll_number=roll_number)
     course = main_model.Course.objects.all()
     return render(request, "students/show_course_demo.html", {'student' : student, 'course' : course})
