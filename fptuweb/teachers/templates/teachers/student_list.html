@@ -1,0 +1,9 @@
+{% extends "teachers/base.html" %}
+{% block content %}
+<h1>{{group}} - {{course}}</h1>
+<ul class="list-group">
+    {% for item in s_list %}
+    <li class="list-group-item">{{item}}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

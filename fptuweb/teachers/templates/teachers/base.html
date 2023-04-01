@@ -21,13 +21,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link" href="{% url 'teachers_home' %}">Home</a>
-                        <a class="nav-link" href="#">Class List</a>
-                        <a class="nav-link" href="#">Student List</a>
                         {% if not user.is_authenticated %}
                         <a class="nav-link" href="/teachers/login">Login</a>
                         <a class="nav-link" href="{% url 'teachers_register' %}">Register</a>
                         {% else %}
+                        <a class="nav-link" href="{% url 'teachers_home' %}">Home</a>
+                        <a class="nav-link" href="{% url 'teachers_class' %}">Class List</a>
                         <a class="nav-link" href="/teachers/logout">Logout</a>
                         {% endif %}
                     </div>
