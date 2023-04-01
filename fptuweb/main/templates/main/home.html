@@ -1,9 +1,20 @@
 {% extends 'main/base.html' %}
 {% block title %}FBT Edu Home{% endblock %}
-
 {% block content %}
 <h1>FBT Edu Main Page</h1>
+{% if user.is_authenticated %}
+{% if "hs" in request.user.username %}
 <a href="{% url 'students_home' %}">Go to students app</a>
 <br>
+{% endif %}
+{% if "tea" in request.user.username %}
 <a href="{% url 'teachers_home' %}">Go to teachers app</a>
+{% endif %}
+<p>You Are Logged In - {{request.user}}</p>
+<a class="nav-link" href="/logout">Logout</a>
+{% else %}
+<p>You Are Not Logged In</p>
+<a class="nav-link" href="/login">Login</a>
+<!-- <a class="nav-link" href="{% url 'teachers_register' %}">Register</a> -->
+{% endif %}
 {% endblock %}
