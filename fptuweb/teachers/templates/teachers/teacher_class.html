@@ -1,0 +1,12 @@
+{% extends "teachers/base.html" %}
+{% block content %}
+<ul class="list-group">
+    {% for item in teacher_class %}
+    <li class="list-group-item"><a
+            href="{% url 'teachers_student_list' %}?group={{ item.group_course.group.name | urlencode }}&course={{ item.group_course.course.course_code | urlencode }}">{{item.group_course.group.name}}
+            -
+            {{item.group_course.course.name}} -
+            {{item.group_course.course.course_code}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

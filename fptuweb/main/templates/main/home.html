@@ -1,1 +1,9 @@
 {% extends 'main/base.html' %}
+{% block title %}FBT Edu Home{% endblock %}
+
+{% block content %}
+<h1>FBT Edu Main Page</h1>
+<a href="{% url 'students_home' %}">Go to students app</a>
+<br>
+<a href="{% url 'teachers_home' %}">Go to teachers app</a>
+{% endblock %}
