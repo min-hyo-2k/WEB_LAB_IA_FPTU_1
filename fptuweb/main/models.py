@@ -72,44 +72,44 @@ class Teacher(models.Model):
         return f"{self.name} : {self.teacher_code}"
 
 
-class Class(models.Model):
+class Group(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return self.name
 
 
-class ClassCourse(models.Model):
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
+class GroupCourse(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('class_id', 'course')
+        unique_together = ('group', 'course')
 
     def __str__(self):
-        return f"{self.class_id.name} : {self.course.name}"
+        return f"{self.group.name} : {self.course.name}"
 
 
-class ClassCourseStudent(models.Model):
-    class_course_id = models.ForeignKey(ClassCourse, on_delete=models.CASCADE)
+class GroupCourseStudent(models.Model):
+    group_course = models.ForeignKey(GroupCourse, on_delete=models.CASCADE)
     students = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
 
     class Meta:
-        unique_together = ('class_course_id', 'students')
+        unique_together = ('group_course', 'students')
 
     def __str__(self):
-        return f"{self.students.name} : {self.class_course_id.__str__()}"
+        return f"{self.students.name} : {self.group_course.__str__()}"
 
 
-class ClassCourseTeacher(models.Model):
-    class_course_id = models.ForeignKey(ClassCourse, on_delete=models.CASCADE)
+class GroupCourseTeacher(models.Model):
+    group_course = models.ForeignKey(GroupCourse, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
 
     class Meta:
-        unique_together = ('class_course_id', 'teacher')
+        unique_together = ('group_course', 'teacher')
 
     def __str__(self):
-        return f"{self.class_course_id.__str__()} : {self.teacher.__str__()}"
+        return f"{self.group_course.__str__()} : {self.teacher.__str__()}"
 
 
 class StudentCourse(models.Model):
@@ -122,9 +122,11 @@ class StudentCourse(models.Model):
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group,on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES)
     semester = models.CharField(max_length=20)
     term = models.PositiveIntegerField()
+    avg_mark = models.FloatField(null=True)
 
     class Meta:
         unique_together = ('student', 'course')
@@ -144,7 +146,7 @@ class CoursePartMark(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} : {self.course.name}"
+        return f"{self.name} : {self.course.name} : {self.weight}"
 
 
 def validate_mark(value):
@@ -163,3 +165,11 @@ class CourseMark(models.Model):
 
     def __str__(self):
         return f"{self.student.name} : {self.course.name} : {self.part_mark.name} : {self.mark}"
+
+
+class Userlogin(models.Model):
+    code = models.CharField(max_length=255, unique=True)
+    email = models.EmailField()
+    password = models.CharField(max_length=255)
+
+

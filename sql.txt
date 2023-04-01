@@ -83,6 +83,11 @@
 - weight (trong so diem)
 - course_id | FK
 
+* Userlogin:
+- code | PK
+- email
+- password
+
 ---------------------------------------Comments------------------------------------------------
 # class Meta de link unique set value unique together 1-1
 # def str set return ve gia tri cua object ma minh set

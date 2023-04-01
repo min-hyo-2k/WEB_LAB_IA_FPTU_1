@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'students',
     'teachers',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fptu_web_db',
         'USER': 'root',
-        'PASSWORD': 'he140409',
+        'PASSWORD': '240599@Hoang',
         'HOST': 'localhost',
         'PORT': '3306',
     }
