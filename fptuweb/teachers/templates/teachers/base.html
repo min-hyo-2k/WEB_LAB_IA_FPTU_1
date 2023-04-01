@@ -36,10 +36,11 @@
         </nav>
         {% if user.is_authenticated %}
         <p>You Are Logged In</p>
+        {% block content %}{% endblock %}
         {% else %}
         <p>You Are Not Logged In</p>
+        {% block register %}{% endblock %}
         {% endif %}
-        {% block content %}{% endblock %}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
