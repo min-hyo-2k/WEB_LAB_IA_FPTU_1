@@ -41,10 +41,10 @@ def student_list(request):
     student_group_course = m.GroupCourseStudent.objects.filter(group_course=group_course.id)
     s_list = []
     for item in student_group_course:
-        studentx = m.StudentCourse.objects.filter(student=item.students.id, course__course_code=course, group__name=group).first()
+        studentx = m.StudentCourse.objects.filter(course__course_code=course, group__name=group)
         # studentx = m.StudentCourse.objects.filter(student=item.students.id, course__course_code=course, group__name=group, status='S').first()
-        if studentx:
-            student = str(studentx.student.roll_number) +" - "+ str(studentx.student.name)
+        for s in studentx:
+            student = str(s.student.roll_number) +" - "+ str(s.student.name)
             s_list.append(student)
     print(s_list)
     return render(request, "teachers/student_list.html", {"group" : group, "course" : course, "s_list" : s_list})
